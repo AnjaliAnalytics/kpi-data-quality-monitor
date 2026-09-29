@@ -3,39 +3,17 @@
 An automated, production-ready data quality and KPI observability platform that monitors business metrics, detects statistical anomalies in time-series data, generates root-cause analyses using generative AI, and dispatches real-time alerts to Slack.
 
 ---
-
 ## 🏗️ System Architecture
 
-┌─────────────────────────┐
-                           │  PostgreSQL (Supabase)  │
-                           └────────────┬────────────┘
-                                        │
-                                        ▼
-                           ┌─────────────────────────┐
-                           │  Python Metrics Engine  │
-                           │  (config/metrics.yaml)  │
-                           └────────────┬────────────┘
-                                        │
-                                        ▼
-                           ┌─────────────────────────┐
-                           │    Data Quality &       │
-                           │  Anomaly Detector       │
-                           │     (Z-Score / IQR)     │
-                           └────────────┬────────────┘
-                                        │
-                 ┌──────────────────────┴──────────────────────┐
-                 ▼                                             ▼
-   ┌──────────────────────────┐                  ┌──────────────────────────┐
-   │   Google Gemini API      │                  │   Slack Webhook Alerts   │
-   │   (Root-Cause Explainer) │                  │   (Block Kit Format)     │
-   └────────────┬─────────────┘                  └──────────────────────────┘
-                │
-                └──────────────────────┬──────────────────────────────┘
-                                       ▼
-                         ┌──────────────────────────┐
-                         │ Streamlit Observability  │
-                         │        Dashboard         │
-                         └──────────────────────────┘
+```mermaid
+flowchart TD
+    A[(PostgreSQL - Supabase)] --> B[Python Metrics Engine<br/>config/metrics.yaml]
+    B --> C[Data Quality & Anomaly Detector<br/>Z-Score / IQR]
+    C --> D[Google Gemini API<br/>Root-Cause Explainer]
+    C --> E[Slack Webhook Alerts<br/>Block Kit Format]
+    D --> F[Streamlit Observability Dashboard]
+    E --> F
+```
 
 The system operates on an automated schedule powered by **GitHub Actions**, executing end-to-end checks every 30 minutes. Audit trails and run logs are persisted in Supabase.
 
