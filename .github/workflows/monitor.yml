@@ -29,6 +29,7 @@ jobs:
 
       - name: 4. Execute End-to-End Monitoring Pipeline
         env:
+          PYTHONPATH: .
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
