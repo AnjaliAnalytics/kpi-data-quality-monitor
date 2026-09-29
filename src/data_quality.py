@@ -1,9 +1,9 @@
 import os
-from typing import Dict, Any
+from typing import Any
 from datetime import datetime
 from src.database import supabase
 
-def run_data_quality_checks() -> Dict[str, Any]:
+def run_data_quality_checks() -> dict[str, Any]:
     """Executes automated data health and quality suite checks."""
     timestamp = datetime.utcnow().isoformat()
     
