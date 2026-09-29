@@ -1,0 +1,83 @@
+version: "1.0"
+owner: "Data Engineering & Analytics Team"
+
+metrics:
+  - name: "daily_revenue"
+    display_name: "Total Daily Revenue ($)"
+    unit: "USD"
+    description: "Total monetary value of completed orders in a single day"
+    owner: "Finance & Sales"
+    time_dimension: "metric_date"
+    sql_expression: "total_revenue"
+    aggregation: "sum"
+    anomaly_config:
+      method: "z_score"
+      threshold: 2.0  # Flag if > 2 standard deviations away
+      lookback_days: 30
+      severity_rules:
+        critical_deviation_pct: 35.0  # > 35% drop/spike = CRITICAL
+        warning_deviation_pct: 15.0   # > 15% drop/spike = WARNING
+
+  - name: "completed_orders"
+    display_name: "Completed Orders Count"
+    unit: "count"
+    description: "Total number of successfully placed and non-cancelled orders"
+    owner: "Operations"
+    time_dimension: "metric_date"
+    sql_expression: "total_completed_orders"
+    aggregation: "count"
+    anomaly_config:
+      method: "z_score"
+      threshold: 2.0
+      lookback_days: 30
+      severity_rules:
+        critical_deviation_pct: 40.0
+        warning_deviation_pct: 20.0
+
+  - name: "avg_order_value"
+    display_name: "Average Order Value ($)"
+    unit: "USD"
+    description: "Average revenue generated per completed order (Revenue / Completed Orders)"
+    owner: "Product Marketing"
+    time_dimension: "metric_date"
+    sql_expression: "avg_order_value"
+    aggregation: "avg"
+    anomaly_config:
+      method: "iqr"
+      threshold: 1.5  # 1.5x Interquartile Range
+      lookback_days: 30
+      severity_rules:
+        critical_deviation_pct: 25.0
+        warning_deviation_pct: 10.0
+
+  - name: "active_customers"
+    display_name: "Active Daily Customers"
+    unit: "count"
+    description: "Distinct count of customers who made at least one completed purchase"
+    owner: "Customer Growth"
+    time_dimension: "metric_date"
+    sql_expression: "active_customers"
+    aggregation: "count_distinct"
+    anomaly_config:
+      method: "z_score"
+      threshold: 2.0
+      lookback_days: 30
+      severity_rules:
+        critical_deviation_pct: 30.0
+        warning_deviation_pct: 15.0
+
+  - name: "refund_rate"
+    display_name: "Refund Rate (%)"
+    unit: "percent"
+    description: "Percentage of total orders that resulted in refunds"
+    owner: "Customer Support & QA"
+    time_dimension: "metric_date"
+    sql_expression: "refund_rate_pct"
+    aggregation: "rate"
+    anomaly_config:
+      method: "iqr"
+      threshold: 1.5
+      lookback_days: 30
+      severity_rules:
+        critical_deviation_pct: 50.0 # High refund spike is dangerous!
+        warning_deviation_pct: 25.0
