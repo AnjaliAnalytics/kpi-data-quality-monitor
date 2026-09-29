@@ -2,6 +2,15 @@
 
 An automated, production-ready data quality and KPI observability platform that monitors business metrics, detects statistical anomalies in time-series data, generates root-cause analyses using generative AI, and dispatches real-time alerts to Slack.
 
+# 📊 AI-Powered KPI & Data Quality Monitoring System
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://kpi-data-quality-monitor.streamlit.app)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/AnjaliAnalytics/kpi-data-quality-monitor/monitor.yml?branch=main&label=Pipeline%20Schedule)](https://github.com/AnjaliAnalytics/kpi-data-quality-monitor/actions)
+
+> 🚀 **Live Interactive Dashboard:** [kpi-data-quality-monitor.streamlit.app](https://kpi-data-quality-monitor-bhqmcelmfeouqllqzqevsv.streamlit.app/)
+
+An automated, production-ready data quality and KPI observability platform that monitors business metrics, detects statistical anomalies in time-series data, generates root-cause analyses using generative AI, and dispatches real-time alerts to Slack.
+
 ---
 ## 🏗️ System Architecture
 
